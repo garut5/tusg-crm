@@ -1,5 +1,4 @@
 "use client"
-
 import { createClient } from "@supabase/supabase-js"
 import { useState } from "react"
 
@@ -19,43 +18,49 @@ export default function Home() {
     })
 
     if (error) {
-      alert("エラー: " + error.message)
+      alert("登録失敗")
     } else {
       alert("登録確認メールを確認してください")
     }
   }
 
+  const login = async () => {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if (error) {
+      alert("ログイン失敗")
+    } else {
+      alert("ログイン成功")
+    }
+  }
+
   return (
-    <div style={{ padding: 40, fontFamily: "Arial" }}>
+    <div style={{ padding: 40 }}>
       <h1>TUSG CRM</h1>
 
       <input
         placeholder="Email"
         onChange={(e) => setEmail(e.target.value)}
-        style={{ padding: 8, width: 250 }}
       />
+
       <br /><br />
 
       <input
         type="password"
         placeholder="Password"
         onChange={(e) => setPassword(e.target.value)}
-        style={{ padding: 8, width: 250 }}
       />
+
       <br /><br />
 
-      <button
-        onClick={signup}
-        style={{
-          padding: 10,
-          backgroundColor: "black",
-          color: "white",
-          border: "none",
-          cursor: "pointer"
-        }}
-      >
-        登録
-      </button>
+      <button onClick={signup}>登録</button>
+
+      <br /><br />
+
+      <button onClick={login}>ログイン</button>
     </div>
   )
 }
