@@ -21,12 +21,23 @@ export default function Dashboard() {
     }
 
     checkUser()
-  }, [])
+  }, [router])
 
   return (
     <div style={{ padding: 40 }}>
       <h1>ダッシュボード</h1>
       <p>ログイン成功 🎉</p>
+
+      <br />
+
+      <button
+        onClick={async () => {
+          await supabase.auth.signOut()
+          router.push("/")
+        }}
+      >
+        ログアウト
+      </button>
     </div>
   )
 }
