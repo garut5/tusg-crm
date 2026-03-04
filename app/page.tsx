@@ -13,18 +13,18 @@ export default function Home() {
   const [password, setPassword] = useState("")
   const router = useRouter()
 
-  const signup = async () => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    })
+const signup = async () => {
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+  })
 
-    if (error) {
-      alert("登録失敗")
-    } else {
-      alert("登録確認メールを確認してください")
-    }
+  if (error) {
+    alert(error.message)
+  } else {
+    alert("登録確認メールを確認してください")
   }
+}
 
   const login = async () => {
     const { error } = await supabase.auth.signInWithPassword({
