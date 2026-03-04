@@ -1,7 +1,7 @@
-import { useRouter } from "next/navigation"
 "use client"
 import { createClient } from "@supabase/supabase-js"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -11,6 +11,7 @@ const supabase = createClient(
 export default function Home() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const router = useRouter()
 
   const signup = async () => {
     const { error } = await supabase.auth.signUp({
@@ -34,7 +35,7 @@ export default function Home() {
     if (error) {
       alert("ログイン失敗")
     } else {
-      alert("ログイン成功")
+      router.push("/dashboard")
     }
   }
 
